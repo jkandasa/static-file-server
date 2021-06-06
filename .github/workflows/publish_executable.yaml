@@ -1,4 +1,4 @@
-name: Publish release images
+name: Publish executable images
 
 on:
   push:

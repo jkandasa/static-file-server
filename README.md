@@ -1,4 +1,7 @@
 # Lightweight static file server
+![publish container workflow](https://github.com/jkandasa/static-file-server/actions/workflows/publish_container.yaml/badge.svg)
+![publish executable workflow](https://github.com/jkandasa/static-file-server/actions/workflows/publish_executable.yaml/badge.svg)
+
 Lightweight static file server serves static files.
 
 ### Setup in docker
