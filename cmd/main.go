@@ -13,6 +13,7 @@ import (
 
 	templateIndex "github.com/jkandasa/static-file-server/pkg/template"
 	"github.com/jkandasa/static-file-server/pkg/utils"
+	"github.com/jkandasa/static-file-server/pkg/version"
 )
 
 const (
@@ -30,6 +31,9 @@ func main() {
 	port := flag.String("port", "8080", "port to serve on")
 	directory := flag.String("dir", "/data", "the static directory to host")
 	flag.Parse()
+
+	// print version details
+	fmt.Println(version.Get().ToString())
 
 	baseDir = *directory
 	brandName = os.Getenv(ENV_BRAND_NAME)

@@ -10,7 +10,8 @@ ARG GOPROXY
 RUN go mod download -x
 ARG TARGETOS
 ARG TARGETARCH
-RUN go build -v -o static-file-server cmd/main.go
+RUN source scripts/update_version.sh && \
+  GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o static-file-server -ldflags "${LD_FLAGS}" cmd/main.go
 
 
 FROM alpine:3.13

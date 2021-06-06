@@ -22,4 +22,4 @@ jobs:
         password: ${{ secrets.DOCKER_TOKEN }}
 
     - name: Build container image and push
-      run: ./build.sh
+      run: ./scripts/build.sh
