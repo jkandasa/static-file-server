@@ -17,7 +17,7 @@ do
   platform_raw=(${platform//\// })
   GOOS=${platform_raw[0]}
   GOARCH=${platform_raw[1]}
-  EXECUTABLE="static-file-server-${GIT_BRANCH}-${GOOS}-${GOARCH}"
+  EXECUTABLE="static-file-server-${VERSION}-${GOOS}-${GOARCH}"
 
   if [ $GOOS = "windows" ]; then
     EXECUTABLE+='.exe'

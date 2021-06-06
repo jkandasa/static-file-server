@@ -8,3 +8,9 @@ export GIT_SHA_SHORT=`git rev-parse --short HEAD`
 export VERSION_PKG="github.com/jkandasa/static-file-server/pkg/version"
 
 export LD_FLAGS="-X $VERSION_PKG.version=$GIT_BRANCH -X $VERSION_PKG.buildDate=$BUILD_DATE -X $VERSION_PKG.gitCommit=$GIT_SHA"
+
+# update version number
+export VERSION=`echo ${GIT_BRANCH} |  awk 'match($0, /([0-9]*\.[0-9]*)$/) { print substr($0, RSTART, RLENGTH) }'`
+if [ ${GIT_BRANCH} = "master" ]; then
+export VERSION="master"
+fi

@@ -13,4 +13,4 @@ docker buildx build --push \
   --build-arg=GOPROXY=${GOPROXY} \
   --platform ${PLATFORMS} \
   --file Dockerfile \
-  --tag ${REGISTRY}/${IMAGE_NAME}:${GIT_BRANCH} .
+  --tag ${REGISTRY}/${IMAGE_NAME}:${VERSION} .
