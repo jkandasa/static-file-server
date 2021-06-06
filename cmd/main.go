@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"os"
 	"path"
 	"path/filepath"
 	"strings"
@@ -14,20 +15,27 @@ import (
 	"github.com/jkandasa/static-file-server/pkg/utils"
 )
 
+const (
+	ENV_BRAND_NAME     = "BRAND_NAME"
+	DEFAULT_BRAND_NAME = "Lightweight Static File Server"
+)
+
 var (
 	baseDir         string
-	brand           string
+	brandName       string
 	webpageTemplate *template.Template
 )
 
 func main() {
 	port := flag.String("port", "8080", "port to serve on")
 	directory := flag.String("dir", "/data", "the static directory to host")
-	bandName := flag.String("brandName", "Lightweight Static File Server", "brand name")
 	flag.Parse()
 
 	baseDir = *directory
-	brand = *bandName
+	brandName = os.Getenv(ENV_BRAND_NAME)
+	if brandName == "" {
+		brandName = DEFAULT_BRAND_NAME
+	}
 
 	// compile webpage template
 	compiledTemplate, err := template.New("webpage").Parse(templateIndex.INDEX)
@@ -78,7 +86,7 @@ func handleRequests(w http.ResponseWriter, r *http.Request) {
 
 		baseReference := strings.TrimPrefix(path.Dir(fileFullPath), baseDir)
 		var tplBuffer bytes.Buffer
-		err = webpageTemplate.Execute(&tplBuffer, map[string]interface{}{"Files": files, "Dir": baseReference, "Brand": brand})
+		err = webpageTemplate.Execute(&tplBuffer, map[string]interface{}{"Files": files, "Dir": baseReference, "Brand": brandName})
 
 		if err != nil {
 			_, err = w.Write(tplBuffer.Bytes())
