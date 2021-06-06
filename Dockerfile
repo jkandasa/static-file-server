@@ -36,4 +36,4 @@ RUN chmod +x ${APP_HOME}/static-file-server
 
 WORKDIR ${APP_HOME}
 
-CMD ["/app/static-file-server" "-brandName", ${BRAND_NAME}]
+CMD ["/app/static-file-server" "-brandName", "${BRAND_NAME}"]
