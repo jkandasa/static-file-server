@@ -10,17 +10,21 @@ ARG GOPROXY
 RUN go mod download -x
 ARG TARGETOS
 ARG TARGETARCH
-RUN go build -v -o static-file-server main.go
+RUN go build -v -o static-file-server cmd/main.go
 
 
-FROM alpine:3.12.4
+FROM alpine:3.13
 
 LABEL maintainer="Jeeva Kandasamy <jkandasa@gmail.com>"
 
 ENV APP_HOME="/app" \
-    DATA_HOME="/data"
+    DATA_HOME="/data" \
+    BRAND_NAME="Lightweight Static File Server"
 
 EXPOSE 8080
+
+# install timezone utils
+RUN apk --no-cache add tzdata
 
 # create a user and give permission for the locations
 RUN mkdir -p ${APP_HOME} && mkdir -p ${DATA_HOME}
@@ -32,4 +36,4 @@ RUN chmod +x ${APP_HOME}/static-file-server
 
 WORKDIR ${APP_HOME}
 
-CMD ["/app/static-file-server"]
+CMD ["/app/static-file-server" "-brandName", ${BRAND_NAME}]
